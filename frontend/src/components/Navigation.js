@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Navbar, Container, Button, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar, Container, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logo.png";
 
@@ -9,7 +9,7 @@ function Navigation() {
       <Container>
         <LinkContainer to='/'>
           <Navbar.Brand>
-            <img src={logo} style={{ width: 50, height: 50 }} />
+            <img src={logo} style={{ width: 50, height: 50 }} alt=""/>
             FatihChat
           </Navbar.Brand>
         </LinkContainer>

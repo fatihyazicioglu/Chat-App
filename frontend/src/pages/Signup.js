@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Button, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Signup.css";
+import avatarImg from "../assets/avatarImg.jpg";
 
-function Login() {
+function validateImg(){
+
+}
+
+function handleSignup(e){
+  e.preventDefault();
+}
+
+
+function Signup() {
+  const [email, setEmail] = useState('') ;
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+
+  const [image, setImage] = useState(null);
+  const [uploadingImg, setUploadingImg] = useState(false);
+
   return (
     <Container>
       <Row>
@@ -11,10 +28,28 @@ function Login() {
           md={7}
           className='d-flex align-items-center justify-content-center flex-direction-column'
         >
-          <Form style={{ width: "80%", maxWidth: 500 }}>
+          <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleSignup}>
+            <h1 className='text-center'>Create Account</h1>
+            <div className='signup-profile-pic__container'>
+              <img src={avatarImg} className='signup-profile-pic' alt ="" />
+              <label htmlFor='image-upload' className='image-upload-label'>
+                <i className='fas fa-plus-circle add-picture-icon'></i>
+              </label>
+              <input
+                type='file'
+                id='image-upload'
+                hidden
+                accept='image/png, image/jpeg, image/gif, image/jpg'
+                onChange={validateImg}
+              />
+            </div>
+            <Form.Group className='mb-3' controlId='formBasicName'>
+              <Form.Label>Your Name</Form.Label>
+              <Form.Control type='text' placeholder='Fatih Name' onChange={(e)=>setName(e.target.value)} value={name}/>
+            </Form.Group>
             <Form.Group className='mb-3' controlId='formBasicEmail'>
               <Form.Label>Email address</Form.Label>
-              <Form.Control type='email' placeholder='Enter email' />
+              <Form.Control type='email' placeholder='fatih@gmail' onChange={(e)=>setEmail(e.target.value)} value={email}/>
               <Form.Text className='text-muted'>
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -22,17 +57,17 @@ function Login() {
 
             <Form.Group className='mb-3' controlId='formBasicPassword'>
               <Form.Label>Password</Form.Label>
-              <Form.Control type='password' placeholder='Password' />
+              <Form.Control type='password' placeholder='Password'onChange={(e)=>setPassword(e.target.value)} value={password}/>
             </Form.Group>
             <Form.Group className='mb-3' controlId='formBasicCheckbox'>
               <Form.Check type='checkbox' label='Check me out' />
             </Form.Group>
             <Button variant='primary' type='submit'>
-              Login
+              Create Account
             </Button>
             <div className='py-4'>
               <p className='text-center'>
-                Dont have an account? <Link to='/signup'>Signup</Link>
+                Already have and account? <Link to='/login'>Login</Link>
               </p>
             </div>
           </Form>
@@ -43,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
