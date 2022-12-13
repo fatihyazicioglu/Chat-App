@@ -1,5 +1,6 @@
 import React from "react";
-import { ListGroup } from "react-router-dom";
+import {  ListGroup } from "react-bootstrap";
+
 
 function Sidebar() {
     const rooms =["first room", "second room", "third room"];
@@ -14,11 +15,7 @@ function Sidebar() {
       <h2>Members</h2>
 
       <ListGroup.Item
-        key={member.id}
-        style={{ cursor: "pointer" }}
-        active={privateMemberMsg?._id == member?._id}
-        onClick={() => handlePrivateMemberMsg(member)}
-        disabled={member._id === user._id}
+      
       ></ListGroup.Item>
     </>
   );
