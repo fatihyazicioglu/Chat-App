@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Col, Container, Button, Form, Row } from "react-bootstrap";
 import "./Signup.css";
 import avatarImg from "../assets/avatarImg.jpg";
-import { useSignupUserMutation } from "../services/appApi";
+// import { useSignupUserMutation } from "../services/appApi";
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -14,7 +14,9 @@ function Signup() {
   const [email, setEmail] = useState('') ;
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
-  const [signupUser, { isLoading, error }] = useSignupUserMutation();
+  // const [signupUser, { isLoading, error }] = useSignupUserMutation();
+  const [signupUser,  setIsLoading] = useState();
+
   const [image, setImage] = useState(null);
   const [uploadingImg, setUploadingImg] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
