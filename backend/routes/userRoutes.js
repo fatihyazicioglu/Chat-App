@@ -2,12 +2,13 @@ const router = require('express').Router();
 const User = require('../models/User');
 
 // creating user
-router.post('/', async(req, res)=> {
+router.post('/users', async(req, res)=> {
   try {
+    console.log(req.body);
     const {name, email, password, picture} = req.body;
     console.log(req.body);
     const user = await User.create({name, email, password, picture});
-    res.status(201).json(user);
+      return res.status(201).json(user);
   } catch (e) {
     let msg;
     if(e.code == 11000){

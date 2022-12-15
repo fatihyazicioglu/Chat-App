@@ -37,6 +37,7 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.pre("save", function (next) {
   const user = this;
+  console.log("save")
   if (!user.isModified("password")) return next();
 
   bcrypt.genSalt(10, function (err, salt) {
@@ -46,26 +47,27 @@ UserSchema.pre("save", function (next) {
       if (err) return next(err);
 
       user.password = hash;
+      console.log(hash)
       next();
     });
   });
 });
 
-UserSchema.methods.toJSON = function () {
-  const user = this;
-  const userObject = user.toObject();
-  delete userObject.password;
-  return userObject;
-};
+// UserSchema.methods.toJSON = function () {
+//   const user = this;
+//   const userObject = user.toObject();
+//   delete userObject.password;
+//   return userObject;
+// };
 
-UserSchema.statics.findByCredentials = async function (email, password) {
-  const user = await User.findOne({ email });
-  if (!user) throw new Error("invalid email or password");
+// UserSchema.statics.findByCredentials = async function (email, password) {
+//   const user = await User.findOne({ email });
+//   if (!user) throw new Error("invalid email or password");
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) throw new Error("invalid email or password");
-  return user;
-};
+  // const isMatch = await bcrypt.compare(password, user.password);
+  // if (!isMatch) throw new Error("invalid email or password");
+  // return user;
+// };
 
 const User = mongoose.model("User", UserSchema);
 
