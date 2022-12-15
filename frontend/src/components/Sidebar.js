@@ -17,9 +17,9 @@ function Sidebar() {
     setPrivateMemberMsg,
     currentRoom,
   } = useContext(AppContext);
-  // socket.off("new-user").on("new-user", (payload) => {
-  //   setMembers(payload);
-  // });
+  socket.off("new-user").on("new-user", (payload) => {
+    setMembers(payload);
+  });
 
   if (!user) {
     return <></>;
@@ -43,3 +43,4 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
