@@ -6,10 +6,6 @@ import { useSignupUserMutation } from "../services/appApi";
 import { Link, useNavigate } from "react-router-dom";
 
 
-
-
-
-
 function Signup() {
   const [email, setEmail] = useState('') ;
   const [password, setPassword] = useState('')
@@ -60,6 +56,7 @@ async function handleSignup(e) {
           console.log(data);
           navigate("/chat");
       }
+      else{console.log(error)}
   });
 }
 
@@ -85,6 +82,7 @@ async function handleSignup(e) {
                 onChange={validateImg}
               />
             </div>
+            {error && <p className=" alert alert-danger">{error.data}</p>}
             <Form.Group className='mb-3' controlId='formBasicName'>
               <Form.Label>Your Name</Form.Label>
               <Form.Control type='text' placeholder='your name..' onChange={(e)=>setName(e.target.value)} value={name}/>
