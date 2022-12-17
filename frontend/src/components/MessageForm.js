@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,  } from "react";
 import { Button, Col, Form, FormControl, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { AppContext } from "../context/appContext";
+import "./MessageForm.css";
 
 function MessageForm() {
   const [message, setMessage] = useState("");
@@ -42,29 +43,54 @@ function MessageForm() {
 }
   return (
     <>
-      <div className='messages-output'>
-        {!user && <div className='alert alert-danger'>Please login</div>}
-      </div>
-      <Form onSubmit={handleSubmit}>
-        <Row>
-          <Col md={11}>
-            <FormGroup>
-              <FormControl type='text' placeholder='Your message' disabled={!user} value={message} onChange={(e)=>setMessage(e.target.value)}></FormControl>
-            </FormGroup>
-          </Col>
-          <Col md={1}>
-            <Button
-              variant='primary'
-              type='submit'
-              style={{ width: "100%", backgroundColor: "orange" }}
-              disabled={!user}
-            >
-              <i className='fas fa-paper-plane'></i>
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-    </>
+            <div className="messages-output">
+                {user && !privateMemberMsg?._id && <div className="alert alert-info">You are in the {currentRoom} room</div>}
+                {user && privateMemberMsg?._id && (
+                    <>
+                        <div className="alert alert-info conversation-info">
+                            <div>
+                                Your conversation with {privateMemberMsg.name} <img src={privateMemberMsg.picture} className="conversation-profile-pic" />
+                            </div>
+                        </div>
+                    </>
+                )}
+                {!user && <div className="alert alert-danger">Please login</div>}
+
+                {user &&
+                    messages.map(({ _id: date, messagesByDate }, idx) => (
+                        <div key={idx}>
+                            <p className="alert alert-info text-center message-date-indicator">{date}</p>
+                            {messagesByDate?.map(({ content, time, from: sender }, msgIdx) => (
+                                <div className={sender?.email == user?.email ? "message" : "incoming-message"} key={msgIdx}>
+                                    <div className="message-inner">
+                                        <div className="d-flex align-items-center mb-3">
+                                            <img src={sender.picture} style={{ width: 35, height: 35, objectFit: "cover", borderRadius: "50%", marginRight: 10 }} />
+                                            <p className="message-sender">{sender._id == user?._id ? "You" : sender.name}</p>
+                                        </div>
+                                        <p className="message-content">{content}</p>
+                                        <p className="message-timestamp-left">{time}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                <div ref={messageEndRef} />
+            </div>
+            <Form onSubmit={handleSubmit}>
+                <Row>
+                    <Col md={11}>
+                        <Form.Group>
+                            <Form.Control type="text" placeholder="Your message" disabled={!user} value={message} onChange={(e) => setMessage(e.target.value)}></Form.Control>
+                        </Form.Group>
+                    </Col>
+                    <Col md={1}>
+                        <Button variant="primary" type="submit" style={{ width: "100%", backgroundColor: "orange" }} disabled={!user}>
+                            <i className="fas fa-paper-plane"></i>
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
+        </>
   );
 }
 

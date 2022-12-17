@@ -20,7 +20,7 @@ function App() {
   return (
     <AppContext.Provider
       value={
-        (socket,
+        {socket,
         currentRoom,
         setCurrentRoom,
         members,
@@ -30,7 +30,7 @@ function App() {
         setMessages,
         setPrivateMemberMsg,
         rooms,
-        setRooms)
+        setRooms}
       }
     >
       <BrowserRouter>

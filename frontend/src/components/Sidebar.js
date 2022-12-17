@@ -2,9 +2,24 @@ import React, { useContext } from "react";
 import { ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { AppContext } from "../context/appContext";
+import "./Sidebar.css";
+
 
 function Sidebar() {
   const user = useSelector((state) => state.user);
+ function joinRoom(room, isPublic = true) {
+  if(!user){
+    return alert ('Please login');
+  }
+  socket.emit('join-room', room);
+  setCurrentRoom(room);
+
+  if(isPublic){
+    setPrivateMemberMsg(null);
+  }
+  //dispatch for notifications
+
+ }
 
   const {
     socket,
@@ -29,7 +44,7 @@ function Sidebar() {
       <h2>Available rooms</h2>
       <ListGroup>
         {rooms.map((room, idx) => (
-          <ListGroup.Item key={idx}>{room}</ListGroup.Item>
+          <ListGroup.Item key={idx} onClick={()=>joinRoom()}>{room} style={{ cursor: "pointer", display: "flex", justifyContent: "space-between" }}</ListGroup.Item>
         ))}
       </ListGroup>
       <h2>Members</h2>

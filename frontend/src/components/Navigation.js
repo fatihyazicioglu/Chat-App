@@ -3,25 +3,24 @@ import { Nav, Navbar, Container, NavDropdown, Button } from "react-bootstrap";
 import { useLogoutUserMutation } from "../services/appApi";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logo.png";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 
 function Navigation() {
   const user = useSelector((state) => state.user);
-  const [logoutUser]=useLogoutUserMutation();
+  const [logoutUser] = useLogoutUserMutation();
 
-  async function handleLogout(e){
-    exports.preventDefault();
-    await logoutUser
+  async function handleLogout(e) {
+    e.preventDefault();
+    await logoutUser(user);
     // redirect to home page
-    window.location.replace("/")
-
+    window.location.replace("/");
   }
   return (
     <Navbar bg='light' expand='lg'>
       <Container>
         <LinkContainer to='/'>
           <Navbar.Brand>
-            <img src={logo} style={{ width: 50, height: 50 }} alt='' />
+            <img src={logo} style={{ width: 50, height: 50 , borderRadius:90}} alt='' />
             FatihChat
           </Navbar.Brand>
         </LinkContainer>
@@ -48,7 +47,7 @@ function Navigation() {
                         marginRight: 10,
                         objectFit: "cover",
                         borderRadius: "50%",
-                      }}
+                      }} alt=""
                     />
                     {user.name}
                   </>
@@ -63,8 +62,10 @@ function Navigation() {
                   Something
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item >
-                 <Button variant="danger" onClick={handleLogout}>Logout</Button>
+                <NavDropdown.Item>
+                  <Button variant='danger' onClick={handleLogout}>
+                    Logout
+                  </Button>
                 </NavDropdown.Item>
               </NavDropdown>
             )}
