@@ -6,6 +6,8 @@ const Message = require('./models/Message')
 const rooms = ['web-dev-team', 'football','musicband','family','friends'];
 const cors = require('cors');
 const path = require('path');
+// require('dotenv').config()
+
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -14,10 +16,10 @@ app.use(cors());
 app.use(userRoutes)
 require('./connection')
 
-path.resolve();
-app.use(express.static(path.join(__dirname, '/frontend/build')));
+const __variableOfChoice = path.resolve();
+app.use(express.static(path.join(__variableOfChoice, '/frontend/build')));
 app.get('*', (req, res) => 
-res.sendFile(req.path.join(__dirname, '/frontend/build/index.html'))
+res.sendFile(req.path.join(__variableOfChoice, '/frontend/build/index.html'))
 );
 
 const server = require('http').createServer(app);
