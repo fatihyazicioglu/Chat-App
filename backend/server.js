@@ -14,7 +14,7 @@ app.use(cors());
 app.use(userRoutes)
 require('./connection')
 
-// const __dirname = path.resolve();
+path.resolve();
 app.use(express.static(path.join(__dirname, '/frontend/build')));
 app.get('*', (req, res) => 
 res.sendFile(req.path.join(__dirname, '/frontend/build/index.html'))
